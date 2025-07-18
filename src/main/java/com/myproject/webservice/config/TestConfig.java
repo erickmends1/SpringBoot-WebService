@@ -2,6 +2,7 @@ package com.myproject.webservice.config;
 
 import com.myproject.webservice.entities.Order;
 import com.myproject.webservice.entities.User;
+import com.myproject.webservice.entities.enums.OrderStatus;
 import com.myproject.webservice.repositories.OrderRepository;
 import com.myproject.webservice.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,9 @@ public class TestConfig implements CommandLineRunner {
         User u2 = new User(null, "Lucas Rodrigues", "lucasrodrigues@gmail.com", "98970178491", "123456");
         userRepository.saveAll(Arrays.asList(u1, u2));
 
-        Order o1 = new Order(null, Instant.parse("2025-07-03T19:10:00Z"), u1);
-        Order o2 = new Order(null, Instant.parse("2025-07-17T15:18:00Z"), u2);
-        Order o3 = new Order(null, Instant.parse("2025-07-18T14:58:00Z"), u1);
+        Order o1 = new Order(null, Instant.parse("2025-07-03T19:10:00Z"), u1, OrderStatus.PAID);
+        Order o2 = new Order(null, Instant.parse("2025-07-17T15:18:00Z"), u2, OrderStatus.WAITING_PAYMENT);
+        Order o3 = new Order(null, Instant.parse("2025-07-18T14:58:00Z"), u1, OrderStatus.WAITING_PAYMENT);
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 
     }
