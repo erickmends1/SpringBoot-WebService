@@ -3,6 +3,7 @@ package com.myproject.webservice.services;
 import com.myproject.webservice.entities.Product;
 import com.myproject.webservice.entities.User;
 import com.myproject.webservice.repositories.ProductRepository;
+import com.myproject.webservice.services.exception.ResourceNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,6 @@ public class ProductService {
 
     public Product findById(Long id){
         Optional<Product> product = repository.findById(id);
-        return product.get();
+        return product.orElseThrow(() -> new ResourceNotFound(id));
     }
 }

@@ -3,6 +3,7 @@ package com.myproject.webservice.services;
 import com.myproject.webservice.entities.Category;
 import com.myproject.webservice.entities.Order;
 import com.myproject.webservice.repositories.CategoryRepository;
+import com.myproject.webservice.services.exception.ResourceNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,6 @@ public class CategoryService {
 
     public Category findById(Long id){
         Optional<Category> category = repository.findById(id);
-        return category.get();
+        return category.orElseThrow(() -> new ResourceNotFound(id));
     }
 }

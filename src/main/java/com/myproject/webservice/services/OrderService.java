@@ -3,6 +3,7 @@ package com.myproject.webservice.services;
 import com.myproject.webservice.entities.Order;
 import com.myproject.webservice.entities.Product;
 import com.myproject.webservice.repositories.OrderRepository;
+import com.myproject.webservice.services.exception.ResourceNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,6 @@ public class OrderService {
 
     public Order findById(Long id){
         Optional<Order> order = repository.findById(id);
-        return order.get();
+        return order.orElseThrow(() -> new ResourceNotFound(id));
     }
 }
